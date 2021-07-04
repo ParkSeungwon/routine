@@ -18,12 +18,13 @@ export class Popup extends Component {
     return (
       <Overlay ModalComponent={ Platform.OS == 'web' ? Modal : undefined} 
         isVisible={this.show} style={styles.container}>
-        <KeyboardAvoidingView behavior='padding'>
-          <Text h4>{this.props.text}</Text>
+        <KeyboardAvoidingView behavior='padding' style={styles.container} >
+          <Text style={styles.text}>{this.props.text}</Text>
           {this.props.children}
           <View style={styles.foot}>
             {this.props.buttons.map((s:string, i)=>{ 
-              return <Button key={i} title={s} onPress={ ()=>{this.on_click(i)} } />
+              return <Button raised type='outline' style={styles.button}
+                key={i} title={s} onPress={() => { this.on_click(i) }} />
             })}
           </View>
         </KeyboardAvoidingView>
@@ -34,15 +35,20 @@ export class Popup extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    width: '100%'
+    justifyContent: 'flex-start',
     //backgroundColor: '#0f0',
     //alignItems: '',
-    //justifyContent: 'center',
   },
   foot: {
-    width: '100%',
+    marginTop: 5,
     flexDirection: 'row',
-    
+    justifyContent: 'flex-end',
   }, 
+  button: {
+    padding:1,
+  },
+  text: {
+    fontSize: 22,
+    padding: 10
+  },
 });
