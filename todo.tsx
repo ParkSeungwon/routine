@@ -6,7 +6,6 @@ import DraggableFlatList, { RenderItemParams, } from "react-native-draggable-fla
 export class ToDo extends Component {
   protected todos:string[] = [];
   protected check:bool[] = [];
-  protected drag_start = 0;
 
   on_click(i:number) {
     this.check[i] = !this.check[i];//!undefined == true
@@ -49,9 +48,10 @@ export class ToDo extends Component {
         data={this.todos}
         renderItem={this.render_item.bind(this)}
         keyExtractor={(item, index) => {return 'key'+index;}}
-        onDragBegin={(index)=>{this.drag_start = index;}}
+        onDragBegin={(index)=>{}}
+        //simultaneousHandlers={this.refs.scroll}
         onDragEnd={this.set_data.bind(this)}
-        activationDistance={20}
+        //activationDistance={20}
       />
     )
   }

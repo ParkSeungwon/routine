@@ -24,8 +24,8 @@ export class MyTab extends Component {
   private update_list() {
     this.refs.callapi.set_todo(this.data[this.current].todos.map(
       (todo)=>{return todo.todo;}))
-    this.refs.callapi.set_check(this.data[this.current].todos.map(
-      (todo)=>{return todo.check;}))
+    let ch = this.refs.callapi.get_check();
+    this.refs.callapi.set_check(ch);
   }
 
   protected popup_callback(i: number) {//confirm popup
@@ -131,12 +131,12 @@ export class MyTab extends Component {
         </ScrollView>
 
         <Popup ref='enter'
-          text='Enter text' 
+          text='' 
           func={this.done.bind(this)} 
           buttons={['Done', 'Cancel']}
         >
           <View style={styles.over}>
-          <Input placeholder='enter' onChangeText={(txt)=>{this.input_text = txt}} />
+          <Input placeholder='enter text' onChangeText={(txt)=>{this.input_text = txt}} />
           </View>
         </Popup>
 
@@ -159,6 +159,7 @@ export class MyTab extends Component {
       const data = await AsyncStorage.getItem('data');
       if(data != null) //for first launch
         this.data = JSON.parse(data);
+      console.log(this.data);
       this.current = 0;
       this.update_list();
       this.forceUpdate();
@@ -169,6 +170,7 @@ export class MyTab extends Component {
   protected save = async () => {
       try {
         await AsyncStorage.setItem('data', JSON.stringify(this.data));
+        console.log(this.data);
       } catch (error) {
       }
     };
@@ -176,6 +178,7 @@ export class MyTab extends Component {
   componentDidMount() {
     AppState.addEventListener('change', this._handleAppStateChange);
     this.load();
+    console.log('componentDidMount')
     //if(this.data.length == 0) this.titles.push('+');
   }
 
