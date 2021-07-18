@@ -5,11 +5,6 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {Popup } from './popup.tsx'
 import {ToDo} from './todo.tsx'
 
-class ToDoData {
-  todo:string = '';
-  check:bool = false;
-};
-
 class TabData {
   title:string = '';
   todos:ToDoData[] = [];
@@ -21,13 +16,6 @@ export class MyTab extends Component {
   protected input_text:string = '';
   protected isTab:bool = true;
 
-  private update_list() {
-    this.refs.callapi.set_todo(this.data[this.current].todos.map(
-      (todo)=>{return todo.todo;}))
-    let ch = this.refs.callapi.get_check();
-    this.refs.callapi.set_check(ch);
-  }
-
   protected popup_callback(i: number) {//confirm popup
     console.log(i)//first button clicked 0
     switch (i) {
@@ -35,7 +23,6 @@ export class MyTab extends Component {
         console.log('yes function' + this.isTab)
         if (this.isTab) this.remove_tab();
         else this.remove_to_do();
-        this.forceUpdate();
         break;
       case 1:
         console.log('no function');
@@ -45,17 +32,12 @@ export class MyTab extends Component {
 
   protected done(i:number):void {//text enter done
     if(i == 1) return;
-    if (this.isTab) {
-      this.data.push({title: this.input_text, todos: []});
-      this.forceUpdate();
-    } else {
-      if(this.data.length == 0) {
-        this.refs.error.run();
-        return;
-      }
-      this.data[this.current].todos.push( {todo: this.input_text, check: false});
-      this.update_list();
+    if (this.isTab) this.data.push({title: this.input_text, todos: []});
+    else {
+      if(this.data.length == 0) this.refs.error.run();
+      else this.data[this.current].todos.push( {todo: this.input_text, check: false});
     }
+    this.forceUpdate();
   }
   protected show_popup(isTab:bool) {
     //this.input_text = '';
@@ -70,43 +52,30 @@ export class MyTab extends Component {
     if(this.data.length == 0) return;
     this.data.splice(this.current, 1);
     if(this.current > 0) this.current--;
-    if(this.data.length > 0) {
-      this.refs.callapi.set_todo(this.data[this.current].todos.map(
-        (todo) => { return todo.todo; }));
-      this.refs.callapi.set_check(this.data[this.current].todos.map(
-        (todo) => { return todo.check; }))
-    } else {
-      this.refs.callapi.set_todo([]);
-      this.refs.callapi.set_check([]);
-    }
+    if(this.data.length > 0) this.refs.callapi.set(this.data[this.current].todos);
+    else this.refs.callapi.set([]);
     this.forceUpdate();
   }
   protected remove_to_do() {
-    this.save_current();
-    let to_del = this.refs.callapi.get_check();
-    this.data[this.current].todos
-      = this.data[this.current].todos.filter((todo, i) => {return !to_del[i]; });
-    this.update_list();
+    if(this.data[this.current].todos.length == 0) return;
+    let to_del:number[] = [];
+    for(let i=this.data[this.current].todos.length-1; i>=0; i--) 
+      if(this.data[this.current].todos[i].check) to_del.push(i);
+    console.log('to_del array : ')
+    console.log(to_del);
+    for(let i of to_del) this.data[this.current].todos.splice(i, 1);
+    //this.refs.callapi.forceUpdate();
   }
   protected reset() {
-    this.save_current();
     for(let ch of this.data[this.current].todos) ch.check = false;
-    this.update_list();
-  }
-  private save_current() {
-    let ar = this.refs.callapi.get_check();
-    let todos_ar = this.refs.callapi.get_todos();
-    let i = 0;
-    for(let todo of this.data[this.current].todos) {
-      todo.check = ar[i];
-      todo.todo = todos_ar[i++];
-    }
+    this.refs.callapi.forceUpdate();
   }
   protected select_tab(index:int) {
-    this.save_current();
     this.current = index;
-    this.update_list();
-    this.forceUpdate();
+    if(this.data[this.current]) {
+      this.refs.callapi.set(this.data[this.current].todos);
+      this.forceUpdate();
+    }
   }
   render() {
     return (
@@ -115,8 +84,8 @@ export class MyTab extends Component {
           <Button title='Tab+' onPress={()=>{this.show_popup(true);}} type='outline' raised style={styles.button} />
           <Button title='Tab-' onPress={this.show_confirm.bind(this, true)} type='outline' raised style={styles.button} />
           <Button title='Item+' onPress={this.show_popup.bind(this, false)} type='outline' raised style={styles.button} />
-          <Button title='Item-' onPress={this.show_confirm.bind(this, false)} type='outline'raised style={styles.button} />
-          <Button title='reset' onPress={this.reset.bind(this)} type='outline'raised style={styles.button}/>
+          <Button title='Item-' onPress={this.show_confirm.bind(this, false)} type='outline' raised style={styles.button} />
+          <Button title='reset' onPress={this.reset.bind(this)} type='outline' raised style={styles.button}/>
           {/*<Button title='save' onPress={this.save} />*/}
           {/*<Button title='load' onPress={this.load} />*/}
         </View>
@@ -159,9 +128,10 @@ export class MyTab extends Component {
       const data = await AsyncStorage.getItem('data');
       if(data != null) //for first launch
         this.data = JSON.parse(data);
+      console.log('loading...\n');
       console.log(this.data);
       this.current = 0;
-      this.update_list();
+      this.select_tab(0);
       this.forceUpdate();
     } catch (error) {
     }
@@ -169,18 +139,21 @@ export class MyTab extends Component {
 
   protected save = async () => {
       try {
+        this.refs.callapi.sync(this.data.todos);
         await AsyncStorage.setItem('data', JSON.stringify(this.data));
+        console.log('saving...\n');
         console.log(this.data);
       } catch (error) {
       }
     };
 
   componentDidMount() {
-    AppState.addEventListener('change', this._handleAppStateChange);
     this.load();
-    console.log('componentDidMount')
+    AppState.addEventListener('change', this._handleAppStateChange);
+    console.log('componentDidMount');
     //if(this.data.length == 0) this.titles.push('+');
   }
+
 
   componentWillUnmount() {
     AppState.removeEventListener('change', this._handleAppStateChange);
