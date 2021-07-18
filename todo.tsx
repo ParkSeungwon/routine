@@ -10,10 +10,10 @@ class ToDoData {
 
 export class ToDo extends Component {
   state = {
-    todos: ()=>{return [];}
+    todos: ()=>{return [];}//this is equivalent of C pointer
   }
 
-  on_click(i:number) {
+  private on_click(i:number) {
     this.state.todos()[i].check = !this.state.todos()[i].check;//!undefined == true
     this.forceUpdate();
   }

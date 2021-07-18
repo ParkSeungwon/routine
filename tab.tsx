@@ -11,10 +11,10 @@ class TabData {
 };
 
 export class MyTab extends Component {
-  protected current:int = 0;
+  protected current:number = 0;
   protected data:TabData[] = [];
   protected input_text:string = '';
-  protected isTab:bool = true;
+  protected isTab:boolean = true;
 
   protected popup_callback(i: number) {//confirm popup
     console.log(i)//first button clicked 0
@@ -39,12 +39,12 @@ export class MyTab extends Component {
     }
     this.forceUpdate();
   }
-  protected show_popup(isTab:bool) {
+  protected show_popup(isTab:boolean) {
     //this.input_text = '';
     this.isTab = isTab;
     this.refs.enter.run();
   }
-  protected show_confirm(isTab:bool) {
+  protected show_confirm(isTab:boolean) {
     this.isTab = isTab;
     this.refs.popup.run();
   }
@@ -95,9 +95,7 @@ export class MyTab extends Component {
           buttons={this.data.map((tab)=>{return tab.title;})} 
           onPress={this.select_tab.bind(this)}
         />
-        <ScrollView> 
           <ToDo ref='callapi' />
-        </ScrollView>
 
         <Popup ref='enter'
           text='' 
