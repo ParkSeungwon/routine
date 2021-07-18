@@ -1,0 +1,38 @@
+{
+  "files": {
+    "app.js": "/ParkSeungwon/routine.git/static/js/app.8a08daaf.chunk.js",
+    "app.js.map": "/ParkSeungwon/routine.git/static/js/app.8a08daaf.chunk.js.map",
+    "runtime~app.js": "/ParkSeungwon/routine.git/static/js/runtime~app.e49f5961.js",
+    "runtime~app.js.map": "/ParkSeungwon/routine.git/static/js/runtime~app.e49f5961.js.map",
+    "static/js/2.57170152.chunk.js": "/ParkSeungwon/routine.git/static/js/2.57170152.chunk.js",
+    "static/js/2.57170152.chunk.js.map": "/ParkSeungwon/routine.git/static/js/2.57170152.chunk.js.map",
+    "fonts/AntDesign.ttf": "/ParkSeungwon/routine.git/./fonts/AntDesign.ttf",
+    "fonts/Entypo.ttf": "/ParkSeungwon/routine.git/./fonts/Entypo.ttf",
+    "fonts/Feather.ttf": "/ParkSeungwon/routine.git/./fonts/Feather.ttf",
+    "fonts/FontAwesome.ttf": "/ParkSeungwon/routine.git/./fonts/FontAwesome.ttf",
+    "fonts/FontAwesome5_Brands.ttf": "/ParkSeungwon/routine.git/./fonts/FontAwesome5_Brands.ttf",
+    "fonts/FontAwesome5_Solid.ttf": "/ParkSeungwon/routine.git/./fonts/FontAwesome5_Solid.ttf",
+    "fonts/Fontisto.ttf": "/ParkSeungwon/routine.git/./fonts/Fontisto.ttf",
+    "fonts/Foundation.ttf": "/ParkSeungwon/routine.git/./fonts/Foundation.ttf",
+    "fonts/Ionicons.ttf": "/ParkSeungwon/routine.git/./fonts/Ionicons.ttf",
+    "fonts/MaterialCommunityIcons.ttf": "/ParkSeungwon/routine.git/./fonts/MaterialCommunityIcons.ttf",
+    "fonts/MaterialIcons.ttf": "/ParkSeungwon/routine.git/./fonts/MaterialIcons.ttf",
+    "fonts/SimpleLineIcons.ttf": "/ParkSeungwon/routine.git/./fonts/SimpleLineIcons.ttf",
+    "favicon-16.png": "/ParkSeungwon/routine.git/favicon-16.png",
+    "favicon-32.png": "/ParkSeungwon/routine.git/favicon-32.png",
+    "favicon.ico": "/ParkSeungwon/routine.git/favicon.ico",
+    "index.html": "/ParkSeungwon/routine.git/index.html",
+    "manifest.json": "/ParkSeungwon/routine.git/manifest.json",
+    "serve.json": "/ParkSeungwon/routine.git/serve.json",
+    "static/js/2.57170152.chunk.js.LICENSE.txt": "/ParkSeungwon/routine.git/static/js/2.57170152.chunk.js.LICENSE.txt",
+    "static/media/bell.png": "/ParkSeungwon/routine.git/static/media/bell.cf04af27.png",
+    "static/media/heart.png": "/ParkSeungwon/routine.git/static/media/heart.23b5c2c0.png",
+    "static/media/rocket.png": "/ParkSeungwon/routine.git/static/media/rocket.d2f3bf41.png",
+    "static/media/star.png": "/ParkSeungwon/routine.git/static/media/star.69c71386.png"
+  },
+  "entrypoints": [
+    "static/js/runtime~app.e49f5961.js",
+    "static/js/2.57170152.chunk.js",
+    "static/js/app.8a08daaf.chunk.js"
+  ]
+}
