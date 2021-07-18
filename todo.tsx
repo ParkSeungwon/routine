@@ -30,16 +30,20 @@ export class ToDo extends Component {
       />
     )
   }
-
+  private set_data(data) {//{from:number, to:number, data:}
+    let [todo] = this.state.todos().splice(data.from, 1);
+    this.state.todos().splice(data.to, 0, todo);
+    this.forceUpdate();
+  }
   render() {
     return (
       <DraggableFlatList
         data={this.state.todos()}
         renderItem={this.render_item.bind(this)}
-        keyExtractor={(item, index) => {return 'key'+index;}}
+        keyExtractor={(item, index) => {return index;}}
         onDragBegin={(index)=>{}}
         //simultaneousHandlers={this.refs.scroll}
-        onDragEnd={this.set.bind(this)}
+        onDragEnd={this.set_data.bind(this)}
         //activationDistance={20}
       />
     )

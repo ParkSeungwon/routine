@@ -139,7 +139,6 @@ export class MyTab extends Component {
 
   protected save = async () => {
       try {
-        this.refs.callapi.sync(this.data.todos);
         await AsyncStorage.setItem('data', JSON.stringify(this.data));
         console.log('saving...\n');
         console.log(this.data);
