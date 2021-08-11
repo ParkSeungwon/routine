@@ -36,6 +36,7 @@ export class MyTab extends Component {
     else {
       if(this.data.length == 0) this.refs.error.run();
       else this.data[this.current].todos.push( {todo: this.input_text, check: false});
+      this.select_tab(this.current);
     }
     this.forceUpdate();
   }
@@ -49,12 +50,13 @@ export class MyTab extends Component {
     this.refs.popup.run();
   }
   protected remove_tab() {
-    if(this.data.length == 0) return;
-    this.data.splice(this.current, 1);
-    if(this.current > 0) this.current--;
-    if(this.data.length > 0) this.refs.callapi.set(this.data[this.current].todos);
-    else this.refs.callapi.set([]);
-    this.forceUpdate();
+    if(this.data.length > 0) {
+      this.data.splice(this.current, 1);
+      if (this.current > 0) this.current--;
+      if (this.data.length > 0) this.refs.callapi.set(this.data[this.current].todos);
+      else this.refs.callapi.set([]);
+      this.forceUpdate();
+    }
   }
   protected remove_to_do() {
     if(this.data[this.current].todos.length == 0) return;
