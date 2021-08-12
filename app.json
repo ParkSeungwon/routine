@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "Routine Check",
-    "slug": "Routine Check",
+    "name": "Routine_Check",
+    "slug": "routinecheck",
     "version": "1.1.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -23,7 +23,8 @@
     },
     "android": {
       "package": "com.zeta2374.routinecheck",
-      "versionCode": 1,
+      "versionCode": 3,
+      "permissions": [],
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
@@ -32,6 +33,7 @@
     "web": {
       "favicon": "./assets/favicon.png"
     },
-    "description": ""
+    "description": "Simple Todo List App.\nuseful for Routine check",
+    "githubUrl": "https://github.com/ParkSeungwon/routine"
   }
 }

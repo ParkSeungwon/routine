@@ -40,7 +40,7 @@ export class ToDo extends Component {
       <DraggableFlatList
         data={this.state.todos()}
         renderItem={this.render_item.bind(this)}
-        keyExtractor={(item, index) => {return index;}}
+        keyExtractor={(item, index) => {return `draggable-item-${item, index}`;}}
         onDragBegin={(index)=>{}}
         //simultaneousHandlers={this.refs.scroll}
         onDragEnd={this.set_data.bind(this)}
