@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "Routine_Check",
-    "slug": "routinecheck",
+    "name": "Routine Check",
+    "slug": "routine-check",
     "version": "1.1.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",

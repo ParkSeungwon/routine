@@ -59,6 +59,7 @@ export class MyTab extends Component {
     }
   }
   protected remove_to_do() {
+    if(this.data.length == 0) return;
     if(this.data[this.current].todos.length == 0) return;
     let to_del:number[] = [];
     for(let i=this.data[this.current].todos.length-1; i>=0; i--) 
@@ -69,6 +70,7 @@ export class MyTab extends Component {
     //this.refs.callapi.forceUpdate();
   }
   protected reset() {
+    if(this.data.length == 0) return;
     for(let ch of this.data[this.current].todos) ch.check = false;
     this.refs.callapi.forceUpdate();
   }
